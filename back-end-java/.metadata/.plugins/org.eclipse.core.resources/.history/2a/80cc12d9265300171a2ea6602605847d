@@ -1,0 +1,32 @@
+package br.com.amigopet.bean;
+
+import java.io.Serializable;
+import java.util.List;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+
+import br.com.amigopet.domain.Promocao;
+
+@SuppressWarnings("serial")
+@ManagedBean
+@ViewScoped
+public class PromocaoBean implements Serializable {
+	private Promocao promocao;
+	private List<Promocao> promocoes;
+	public Promocao getPromocao() {
+		return promocao;
+	}
+	public void setPromocao(Promocao promocao) {
+		this.promocao = promocao;
+	}
+	public List<Promocao> getPromocoes() {
+		return promocoes;
+	}
+	public void setPromocoes(List<Promocao> promocoes) {
+		this.promocoes = promocoes;
+	}
+	
+	
+
+}

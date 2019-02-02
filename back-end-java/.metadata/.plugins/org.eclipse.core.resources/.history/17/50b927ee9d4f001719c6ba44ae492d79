@@ -1,0 +1,68 @@
+package br.com.amigopet.domain;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+
+@SuppressWarnings("serial")
+@Entity
+public class Servico extends GenericDomain {
+
+	@Column(length = 20, nullable = false)
+	private String nome;
+
+	@Column(length = 50, nullable = false)
+	private String descricao;
+
+	@Column(nullable = false)
+	private Boolean disponibilidade;
+
+	@Column(nullable = false)
+	private Character especie;
+
+	@ManyToOne
+	@JoinColumn(nullable = false)
+	private Petshop petshop;
+
+	public String getnome() {
+		return nome;
+	}
+
+	public void setnome(String nome) {
+		this.nome = nome;
+	}
+
+	public Boolean getDisponibilidade() {
+		return disponibilidade;
+	}
+
+	public void setDisponibilidade(Boolean disponibilidade) {
+		this.disponibilidade = disponibilidade;
+	}
+
+	public Character getespecie() {
+		return especie;
+	}
+
+	public void setespecie(Character especie) {
+		this.especie = especie;
+	}
+
+	public Petshop getPetshop() {
+		return petshop;
+	}
+
+	public void setPetshop(Petshop petshop) {
+		this.petshop = petshop;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+}

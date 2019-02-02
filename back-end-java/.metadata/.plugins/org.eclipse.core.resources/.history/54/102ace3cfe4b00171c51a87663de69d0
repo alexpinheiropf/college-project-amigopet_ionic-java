@@ -1,0 +1,34 @@
+package br.com.amigopet.domain;
+
+import java.sql.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.JoinColumn;
+
+@SuppressWarnings("serial")
+@Entity
+public class Agenda extends GenericDomain{
+	
+	@JoinColumn(nullable = false)
+	private Petshop petshop;
+	
+	@JoinColumn(nullable = false)
+	private Cliente cliente;
+	
+	@JoinColumn(nullable = false)
+	private Servico servico;
+	
+	@Column(nullable = false)
+	private Date dataInicio;
+	
+	@Column(nullable = false)
+	private Date dataFim;
+	
+	@Column(length = 100, nullable = false)
+	private String obs;
+	
+	@Column(nullable = false)
+	private boolean ativo;
+	
+}

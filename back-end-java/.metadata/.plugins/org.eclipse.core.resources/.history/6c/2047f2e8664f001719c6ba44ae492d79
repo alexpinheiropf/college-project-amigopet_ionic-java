@@ -1,0 +1,17 @@
+package br.com.amigopet.bean;
+
+import java.io.Serializable;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+
+import br.com.amigopet.domain.Pessoa;
+
+@SuppressWarnings("serial")
+@ManagedBean
+@ViewScoped
+public class PessoaBean implements Serializable{
+	private Pessoa pessoa;
+	
+
+}

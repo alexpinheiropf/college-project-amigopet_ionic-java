@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Pessoa</title>
+</h:head>
+<h:body>
+	<p:growl id="mensagem" />
+
+	<h:form id="formListagem">
+		<p:panel header="Pessoa - Listagem">
+			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
+				paginator="true" value="#{pessoaBean.pessoas}" var="cursorPessoa"
+				rows="5">
+				<f:facet name="header">
+					<p:commandButton value="Novo" actionListener="#{pessoaBean.novo}"
+						update=":formCadastro:painel" oncomplete="PF('dialogo').show();" />
+				</f:facet>
+
+				<p:column headerText="Nome" filterBy="#{cursorPessoa.nome}"
+					sortBy="#{cursorPessoa.nome}">
+					<h:outputText value="#{cursorPessoa.nome}" />
+				</p:column>
+
+				<p:column headerText="Celular">
+					<h:outputText value="#{cursorPessoa.celular}" />
+				</p:column>
+
+				<p:column headerText="E-mail" filterBy="#{cursorPessoa.email}"
+					sortBy="#{cursorPessoa.nome}">
+					<h:outputText value="#{cursorPessoa.email}" />
+				</p:column>
+
+				<p:column headerText="Rua">
+					<h:outputText value="#{cursorPessoa.rua}" />
+				</p:column>
+
+				<p:column headerText="Numero">
+					<h:outputText value="#{cursorPessoa.numero}" />
+				</p:column>
+
+				<p:column headerText="Bairro">
+					<h:outputText value="#{cursorPessoa.bairro}" />
+				</p:column>
+
+				<p:column headerText="Cidade" filterBy="#{cursorPessoa.cidade.nome}"
+					sortBy="#{cursorPessoa.cidade.nome}">
+					<h:outputText value="#{cursorPessoa.cidade.nome}" />
+				</p:column>
+
+				<p:column headerText="Opções">
+					<p:commandButton icon="ui-icon-trash"
+						actionListener="#{pessoaBean.excluir}"
+						update=":mensagem :formListagem:tabela">
+
+						<p:confirm header="Confirmação" message="Deseja excluir a Pessoa?"
+							icon="ui-icon-alert" />
+						<f:attribute name="pessoaSelecionado" value="#{cursorPessoa}" />
+					</p:commandButton>
+
+					<p:commandButton icon="ui-icon-pencil"
+						actionListener="#{pessoaBean.editar}"
+						update=":mensagem :formCadastro:painel"
+						oncomplete="PF('dialogo').show();">
+						<f:attribute name="pessoaSelecionado" value="#{cursorPessoa}" />
+					</p:commandButton>
+
+				</p:column>
+
+			</p:dataTable>
+
+			<p:confirmDialog global="true">
+				<p:commandButton value="Sim" type="button"
+					styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+				<p:commandButton value="Não" type="button"
+					styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+			</p:confirmDialog>
+
+		</p:panel>
+	</h:form>
+
+	<p:dialog header="Pessoa - Cadastro" widgetVar="dialogo"
+		draggable="false" resizable="false" modal="true" closable="false">
+		<h:form id="formCadastro">
+			<h:panelGrid id="painel" columns="2">
+				<p:outputLabel for="nome" value="Nome:" />
+				<p:inputText id="nome" maxlength="50" size="30"
+					value="#{pessoaBean.pessoa.nome}" required="true"
+					requiredMessage="O Campo Nome é Obrigatório" />
+
+				<p:outputLabel for="cpf" value="CPF:" />
+				<p:inputMask id="cpf" mask="999.999.999-99" size="12"
+				value="#{pessoaBean.pessoa.cpf}" />
+
+				<p:outputLabel value="RG:" />
+				<p:inputText maxlength="11" size="30"
+					value="#{pessoaBean.pessoa.rg}" />
+
+				<p:outputLabel value="Telefone:" />
+				<p:inputMask mask="(99)9999-9999" size="11" 
+				value="#{pessoaBean.pessoa.telefone}"/>
+
+				<p:outputLabel value="Celular:" />
+				<p:inputMask mask="(99)9 9999.9999"  size="12"  
+				value="#{pessoaBean.pessoa.celular}"/>
+
+				<p:outputLabel value="Email:" />
+				<p:inputText maxlength="50" size="30"
+					value="#{pessoaBean.pessoa.email}" />
+					
+				<p:outputLabel for="estado" value="Estado:" />
+				<p:selectOneMenu id="estado" filter="true"
+					value="#{pessoaBean.estado}"
+					converter="omnifaces.SelectItemsConverter">
+
+					<f:selectItem itemValue="" itemLabel="Selecione um Estado" />
+					<f:selectItems value="#{pessoaBean.estados}" var="cursorEstado"
+						itemValue="#{cursorEstado}" itemLabel="#{cursorEstado.nome}" />
+				</p:selectOneMenu>
+				
+				<p:outputLabel for="cidade" value="Cidade:" />
+				<p:selectOneMenu id="cidade" filter="true"
+					value="#{pessoaBean.pessoa.cidade}"
+					converter="omnifaces.SelectItemsConverter" required="true"
+					requiredMessage="O Campo Cidade é Obrigatório">
+
+					<f:selectItem itemValue="" itemLabel="Selecione um Cidade" />
+					<f:selectItems value="#{pessoaBean.cidades}" var="cursorCidade"
+						itemValue="#{cursorCidade}" itemLabel="#{cursorCidade.nome}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Rua:" />
+				<p:inputText maxlength="80" size="40"
+					value="#{pessoaBean.pessoa.rua}" />
+
+				<p:outputLabel value="Numero:" />
+				<p:inputText maxlength="5" size="10"
+					value="#{pessoaBean.pessoa.numero}" />
+
+				<p:outputLabel value="Bairro:" />
+				<p:inputText maxlength="80" size="40"
+					value="#{pessoaBean.pessoa.bairro}" />
+
+				<p:outputLabel value="CEP:" />
+				<p:inputMask mask="99999-999" size="15"
+				value="#{pessoaBean.pessoa.cep}"/>
+
+				<p:outputLabel value="Complemento:" />
+				<p:inputText maxlength="20" size="30"
+					value="#{pessoaBean.pessoa.complemento}" />
+
+				
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="2">
+				<p:commandButton value="Salvar"
+					actionListener="#{pessoaBean.salvar}"
+					update=":mensagem :formCadastro:painel :formListagem:tabela" />
+				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
+			</h:panelGrid>
+		</h:form>
+	</p:dialog>
+</h:body>
+</html>

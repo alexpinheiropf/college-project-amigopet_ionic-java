@@ -1,0 +1,25 @@
+package br.com.amigopet.domain;
+
+import java.sql.Date;
+
+import javax.persistence.Entity;
+
+@SuppressWarnings("serial")
+@Entity
+public class Agenda extends GenericDomain{
+	private Petshop petshop;
+	
+	private Cliente cliente;
+	
+	private Servico servico;
+	
+	
+	private Date dataInicio;
+	
+	private Date dataFim;
+	
+	private String obs;
+	
+	private boolean ativo;
+	
+}

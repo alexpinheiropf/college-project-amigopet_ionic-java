@@ -1,0 +1,18 @@
+package br.com.amigopet.bean;
+
+import java.io.Serializable;
+import java.util.List;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+
+import br.com.amigopet.domain.Servico;
+
+@SuppressWarnings("serial")
+@ManagedBean
+@ViewScoped
+public class ServicoBean implements Serializable  {
+	private Servico servico;
+	private List<Servico> servicos;
+	
+}

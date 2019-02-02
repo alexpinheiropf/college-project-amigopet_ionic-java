@@ -1,0 +1,11 @@
+package br.com.amigopet.domain;
+
+import javax.persistence.Entity;
+
+@SuppressWarnings("serial")
+@Entity
+public class Agenda extends GenericDomain{
+	private Petshop petshop;
+	
+	
+}

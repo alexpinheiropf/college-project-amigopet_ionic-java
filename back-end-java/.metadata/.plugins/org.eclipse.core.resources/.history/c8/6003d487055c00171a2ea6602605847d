@@ -1,0 +1,29 @@
+package br.com.amigopet.domain;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+@SuppressWarnings("serial")
+@Entity
+public class Pet extends GenericDomain {
+	
+	@Column(length = 80, nullable = false)
+	private String nome;
+	
+	@Column(length = 30, nullable = false)
+	private String sexo;
+	
+	@Column(length = 50, nullable = false)
+	private String especie;
+	
+	@Column(nullable = false)
+	@Temporal(TemporalType.DATE)
+	private Date datanasc;
+	
+	@Column(length = 30, nullable = false)
+	private String Raca;
+}

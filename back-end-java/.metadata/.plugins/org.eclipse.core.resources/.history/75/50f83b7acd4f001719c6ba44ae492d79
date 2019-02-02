@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<title>Petshop</title>
+</h:head>
+<h:body>
+	<p:growl id="mensagem" />
+	<h:form id="formListagem">
+		<p:panel header="PetShop - Listagem">
+			<p:dataTable id="tabela" emptyMessage="Nenhum registro encontrado."
+				paginator="true" value="#{petshopBean.petshops}" var="cursorPetshop"
+				rows="5">
+				<f:facet name="header">
+					<p:commandButton value="Novo" actionListener="#{petshopBean.novo}"
+						update=":formCadastro:painel" oncomplete="PF('dialogo').show();">
+						<f:actionListener
+							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+					</p:commandButton>
+				</f:facet>
+				
+				<p:column headerText="Razão Social">
+					<h:outputText value="#{cursorPetshop.razaoSocial}" />
+				</p:column>
+
+				<p:column headerText="CNPJ">
+					<h:outputText value="#{cursorPetshop.cnpj}" />
+				</p:column>
+
+				<p:column headerText="Inscrição Estadual">
+					<h:outputText value="#{cursorPetshop.inscEstadual}" />
+				</p:column>
+
+				<p:column headerText="Opções">
+
+					<p:commandButton icon="ui-icon-trash"
+						actionListener="#{petshopBean.excluir}"
+						update=":mensagem :formListagem:tabela">
+
+						<p:confirm header="Confirmação" message="Deseja excluir o Petshop?"
+							icon="ui-icon-alert" />
+						<f:attribute name="petshopSelecionado" value="#{cursorPetshop}" />
+					</p:commandButton>
+					
+					<p:commandButton icon="ui-icon-trash">
+					
+					</p:commandButton>
+
+					<p:commandButton icon="ui-icon-pencil"
+						actionListener="#{petshopBean.editar}"
+						update=":mensagem :formCadastro:painel"
+						oncomplete="PF('dialogo').show();">
+						<f:attribute name="petshopSelecionado" value="#{cursorPetshop}" />
+						<f:actionListener
+							type="org.omnifaces.eventlistener.ResetInputAjaxActionListener" />
+					</p:commandButton>
+
+				</p:column>
+
+			</p:dataTable>
+		</p:panel>
+	</h:form>
+
+	<p:dialog header="PetShop - Cadastro" widgetVar="dialogo"
+		draggable="false" resizable="false" modal="true" closable="false">
+		<h:form id="formCadastro">
+			<h:panelGrid id="painel" columns="2">
+			<p:outputLabel value="Razão Social: " />
+				<p:inputText maxlength="50" size="30" value="#{petshopBean.petshop.razaoSocial}"/>
+			
+				<p:outputLabel for="pessoa" value="Pessoa: " />
+				<p:selectOneMenu id="pessoa" filter="true" value="#{petshopBean.petshop.pessoa}"
+					converter="omnifaces.SelectItemsConverter">
+					<f:selectItem itemValue="" itemLabel="Selecione um Cadastro" />
+					<f:selectItems value="#{petshopBean.pessoas}" var="cursorPessoa"
+						itemValue="#{cursorPessoa}"
+						itemLabel="#{cursorPessoa.nome}" />
+				</p:selectOneMenu>
+
+				<p:outputLabel value="CPNJ: " />
+				<p:inputText maxlength="14" size="25" value="#{petshopBean.petshop.cnpj}"/>
+
+				<p:outputLabel value="Inscrição Estadual: " />
+				<p:inputText maxlength="10" size="20" value="#{petshopBean.petshop.inscEstadual}" />
+
+			</h:panelGrid>
+
+			<h:panelGrid columns="2">
+				<p:commandButton value="Salvar"
+					actionListener="#{petshopBean.salvar}"
+					update=":mensagem :formCadastro:painel :formListagem:tabela" />
+				<p:commandButton value="Fechar" oncomplete="PF('dialogo').hide();" />
+			</h:panelGrid>
+		</h:form>
+	</p:dialog>
+</h:body>
+</html>

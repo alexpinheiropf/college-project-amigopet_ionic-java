@@ -1,0 +1,7 @@
+package br.com.amigopet.service;
+
+//http://localhost:8080/Amigopet/rest/[Nome]
+
+public class AmigopetService {
+	
+}

@@ -1,0 +1,41 @@
+package br.com.amigopet.bean;
+
+import java.io.Serializable;
+import java.util.List;
+
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+
+import br.com.amigopet.domain.Petshop;
+import br.com.amigopet.domain.Servico;
+
+@SuppressWarnings("serial")
+@ManagedBean
+@ViewScoped
+public class ServicoBean implements Serializable  {
+	private Servico servico;
+	private List<Servico> servicos;
+	private List<Petshop> petshops;
+	
+	public Servico getServico() {
+		return servico;
+	}
+	public void setServico(Servico servico) {
+		this.servico = servico;
+	}
+	public List<Servico> getServicos() {
+		return servicos;
+	}
+	public void setServicos(List<Servico> servicos) {
+		this.servicos = servicos;
+	}
+	public List<Petshop> getPetshops() {
+		return petshops;
+	}
+	public void setPetshops(List<Petshop> petshops) {
+		this.petshops = petshops;
+	}
+	
+	
+	
+}

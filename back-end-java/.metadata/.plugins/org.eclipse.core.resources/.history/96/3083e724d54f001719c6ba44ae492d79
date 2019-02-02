@@ -1,0 +1,74 @@
+package br.com.amigopet.bean;
+
+import java.io.Serializable;
+import java.util.List;
+
+import javax.annotation.PostConstruct;
+import javax.faces.bean.ManagedBean;
+import javax.faces.bean.ViewScoped;
+
+import org.omnifaces.util.Messages;
+
+import br.com.amigopet.dao.ClienteDAO;
+import br.com.amigopet.dao.PetshopDAO;
+import br.com.amigopet.domain.Cliente;
+import br.com.amigopet.domain.Pessoa;
+import br.com.amigopet.domain.Pet;
+
+@SuppressWarnings("serial")
+@ManagedBean
+@ViewScoped
+public class ClienteBean implements Serializable {
+	private Cliente cliente;
+	private List<Cliente> clientes;
+	private List<Pessoa> pessoas;
+	private List<Pet> pets;
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
+	}
+
+	public List<Cliente> getClientes() {
+		return clientes;
+	}
+
+	public void setClientes(List<Cliente> clientes) {
+		this.clientes = clientes;
+	}
+
+	public List<Pessoa> getPessoas() {
+		return pessoas;
+	}
+
+	public void setPessoas(List<Pessoa> pessoas) {
+		this.pessoas = pessoas;
+	}
+
+	public List<Pet> getPets() {
+		return pets;
+	}
+
+	public void setPets(List<Pet> pets) {
+		this.pets = pets;
+	}
+	
+	@PostConstruct
+	public void listar() {
+		try {
+			ClienteDAO clienteDAO = new ClienteDAO();
+			clientes = clienteDAO.listar();
+			
+			PetshopDAO petshopDAO = new PetshopDAO();
+			petshops = petshopDAO.listar();
+
+		} catch (RuntimeException erro) {
+			Messages.addFlashGlobalError("Ocorreu um erro ao tentar listar os petshops");
+			erro.printStackTrace();
+		}
+	}
+
+}
